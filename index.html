@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新春揮毫 | 斗方與春聯選購</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f4f1e8; 
+            --text-color: #2c2c2c;
+            --red-color: #c21f30;
+            --gold-color: #bfa36f; 
+            --dark-gold: #8c734b;
+        }
+
+        body {
+            font-family: "Noto Serif TC", "Songti TC", serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-bottom: 3px double var(--red-color);
+            background-image: radial-gradient(var(--red-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #fffaf0;
+        }
+
+        h1 {
+            color: var(--red-color);
+            font-size: 2.5rem;
+            letter-spacing: 0.2em;
+            margin: 0;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: var(--dark-gold);
+            font-size: 1.1em;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(244, 241, 232, 0.95);
+            padding: 15px 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--red-color);
+            color: var(--red-color);
+            padding: 10px 24px;
+            margin: 0 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--red-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(194, 31, 48, 0.3);
+        }
+
+        .gallery {
+            column-count: 4;
+            column-gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1024px) { .gallery { column-count: 3; } }
+        @media (max-width: 768px) { .gallery { column-count: 2; column-gap: 15px; } }
+
+        .item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            background: white;
+            padding: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+            pointer-events: none;
+            min-height: 100px; /* 避免載入失敗時高度塌陷 */
+            background: #eee;
+        }
+
+        .item-id {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: bold;
+            color: var(--dark-gold);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 12px; left: 12px; right: 12px; bottom: 40px;
+            z-index: 10;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .watermark-text {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 1.2rem;
+            transform: rotate(-45deg);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* 燈箱 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show { opacity: 1; }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            display: flex;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content { flex-direction: column; overflow-y: auto; height: 90vh;}
+        }
+
+        .modal-img-box {
+            flex: 1.5;
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .modal-img-box img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .modal-info {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .modal-info h2 {
+            margin-top: 0;
+            color: var(--red-color);
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .info-row {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .price-selector {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            margin-top: 10px;
+            border: 2px solid var(--red-color);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            color: var(--red-color);
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .action-btn {
+            background-color: var(--red-color);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover { background-color: #a01a28; }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+            line-height: 1;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2000;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<header>
+    <h1>龍蛇飛舞 ‧ 迎春納福</h1>
+    <div class="subtitle">2026 乙巳年 手寫斗方 / 春聯作品集</div>
+</header>
+
+<div class="filters">
+    <button class="filter-btn active" onclick="filterGallery('all')">全部作品</button>
+    <button class="filter-btn" onclick="filterGallery('doufang')">吉祥斗方</button>
+    <button class="filter-btn" onclick="filterGallery('couplet')">新春對聯</button>
+</div>
+
+<div class="gallery" id="gallery">
+    </div>
+
+<div class="modal" id="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <div class="modal-img-box">
+            <img id="modal-img" src="" alt="" onerror="tryNextFormat(this)">
+            <div class="overlay" style="top:0; bottom:0; left:0; right:0;">
+                <div class="watermark-text" style="font-size: 2rem; opacity: 0.4;">版權所有 禁止翻印</div>
+            </div>
+        </div>
+        <div class="modal-info">
+            <h2 id="modal-type">作品詳情</h2>
+            <div class="info-row">
+                <strong>作品編號：</strong>
+                <span id="modal-id" style="font-family: monospace; font-size: 1.3em; color: black;"></span>
+            </div>
+
+            <div class="price-selector">
+                <label><strong>請選擇尺寸與價格：</strong></label>
+                <select id="size-select" onchange="updatePriceDisplay()">
+                    </select>
+                <div class="current-price">NT$ <span id="price-val">0</span></div>
+            </div>
+
+            <button class="action-btn" onclick="copyOrder()">
+                <span>📋 複製訂購資訊</span>
+            </button>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 15px; line-height: 1.5;">
+                點擊按鈕後，編號與規格將複製到剪貼簿。<br>請貼上至 Line 或私訊告知我們即可。
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast">✅ 已複製！請貼上給賣家</div>
+
+<script>
+    // ===============================================
+    // 自動生成資料邏輯
+    // ===============================================
+    const artworks = [];
+
+    // 這裡我們只存 ID，不存副檔名，讓瀏覽器自己去試
+    function generateRange(prefix, start, end, category, label) {
+        for (let i = start; i <= end; i++) {
+            artworks.push({
+                id: `${prefix}${i}`,
+                category: category,
+                label: label
+            });
+        }
+    }
+
+    // 生成斗方 D101-D146
+    generateRange('D', 101, 146, 'doufang', '吉祥斗方');
+    // 生成四言春聯 L4-201-L4-211
+    generateRange('L4-', 201, 211, 'couplet', '四言春聯');
+    // 生成七言春聯 L7-301-L7-302
+    generateRange('L7-', 301, 302, 'couplet', '七言春聯');
+
+    // ===============================================
+    // 價格設定
+    // ===============================================
+    const doufangOptions = [
+        { name: "34 x 34 cm (大) - $180", price: 180 },
+        { name: "17 x 17 cm (中) - $90", price: 90 },
+        { name: "10 x 10 cm (小) - $70", price: 70 },
+        { name: "6 x 6 cm (迷你) - $70", price: 70 }
+    ];
+
+    const coupletOptions = [
+        { name: "標準對聯尺寸 - 請詢價", price: "請詢價" },
+        { name: "客製化尺寸", price: "另議" }
+    ];
+
+    // ===============================================
+    // 智慧型圖片載入邏輯 (處理 .jpg / .JPG / .jpeg / .png)
+    // ===============================================
+    
+    // 定義嘗試順序：小寫 jpg -> 大寫 JPG -> 小寫 jpeg -> 小寫 png
+    const extensions = ['.jpg', '.JPG', '.jpeg', '.png'];
+
+    // 這是一個處理圖片錯誤的函數
+    window.tryNextFormat = function(imgElement) {
+        // 取得目前圖片的完整路徑
+        const currentSrc = imgElement.src;
+        // 找出目前的副檔名是什麼
+        let currentExt = '';
+        
+        // 簡單判斷目前的嘗試進度
+        if (currentSrc.endsWith('.jpg')) currentExt = '.jpg';
+        else if (currentSrc.endsWith('.JPG')) currentExt = '.JPG';
+        else if (currentSrc.endsWith('.jpeg')) currentExt = '.jpeg';
+        else if (currentSrc.endsWith('.png')) currentExt = '.png';
+        
+        // 找出下一個要試的副檔名索引
+        const currentIndex = extensions.indexOf(currentExt);
+        
+        // 如果還有下一個格式可以試
+        if (currentIndex !== -1 && currentIndex < extensions.length - 1) {
+            const nextExt = extensions[currentIndex + 1];
+            // 替換副檔名並重新載入
+            const newSrc = currentSrc.slice(0, -currentExt.length) + nextExt;
+            console.log(`圖片載入失敗，嘗試載入: ${newSrc}`);
+            imgElement.src = newSrc;
+        } else {
+            // 全部試完了還是失敗，顯示預設圖
+            imgElement.onerror = null; // 防止無限迴圈
+            imgElement.style.opacity = '0.5';
+            imgElement.alt = "圖片載入失敗";
+        }
+    };
+
+    // ===============================================
+    // 頁面功能邏輯
+    // ===============================================
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const sizeSelect = document.getElementById('size-select');
+    let currentItem = null;
+
+    function renderGallery(filter = 'all') {
+        gallery.innerHTML = '';
+        artworks.forEach(item => {
+            if (filter !== 'all' && item.category !== filter) return;
+
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.onclick = () => openModal(item);
+            
+            const randTop = Math.floor(Math.random() * 80) + 10;
+            const randLeft = Math.floor(Math.random() * 60) + 20;
+
+            // 預設先讀取 .jpg，如果失敗會觸發 onerror 去跑 tryNextFormat
+            div.innerHTML = `
+                <div style="position:relative; overflow:hidden;">
+                    <img src="images/${item.id}.jpg" 
+                         alt="${item.id}" 
+                         loading="lazy" 
+                         onerror="tryNextFormat(this)">
+                    <div class="overlay">
+                        <div class="watermark-text" style="top:${randTop}%; left:${randLeft}%;">版權所有</div>
+                    </div>
+                </div>
+                <div class="item-id">${item.id}</div>
+            `;
+            gallery.appendChild(div);
+        });
+    }
+
+    function filterGallery(type) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        renderGallery(type);
+    }
+
+    function openModal(item) {
+        currentItem = item;
+        const img = document.getElementById('modal-img');
+        
+        // 燈箱開啟時，也要重置圖片載入邏輯，先試 .jpg
+        // 我們需要知道剛剛在列表頁是哪個格式成功了，但簡單起見，我們重試一次，速度很快
+        img.src = `images/${item.id}.jpg`; 
+        
+        // 將 ID 綁定在 dataset 方便 fallback 函式使用 (雖目前函式是用 src 解析，但保留彈性)
+        img.dataset.id = item.id;
+        
+        document.getElementById('modal-type').innerText = item.label;
+        document.getElementById('modal-id').innerText = item.id;
+        
+        sizeSelect.innerHTML = '';
+        const options = item.category === 'doufang' ? doufangOptions : coupletOptions;
+        
+        options.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt.price;
+            option.text = opt.name;
+            sizeSelect.appendChild(option);
+        });
+
+        updatePriceDisplay();
+        
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('show'), 10);
+    }
+
+    function closeModal() {
+        modal.classList.remove('show');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    function updatePriceDisplay() {
+        const val = sizeSelect.value;
+        document.getElementById('price-val').innerText = val;
+    }
+
+    function copyOrder() {
+        if(!currentItem) return;
+        const sizeText = sizeSelect.options[sizeSelect.selectedIndex].text;
+        const text = `老闆您好，我想訂購：\n------------------\n編號：${currentItem.id}\n規格：${sizeText}\n------------------`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.opacity = 1;
+            setTimeout(() => toast.style.opacity = 0, 2000);
+        });
+    }
+
+    window.onclick = function(e) {
+        if (e.target == modal) closeModal();
+    }
+
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.nodeName === 'IMG') e.preventDefault();
+    });
+
+    renderGallery();
+</script>
+
+</body>
+</html>
