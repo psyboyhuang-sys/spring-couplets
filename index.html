@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>畇藝空間 新春手繪春聯特賣</title>
+    <title>畇藝空間 | 新春手繪春聯特賣</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #f9f4e8; /* 暖米色 */
+            --bg-color: #f9f4e8;
             --text-color: #2c2c2c;
-            --red-color: #d63e46; /* 較為柔和的春聯紅 */
+            --red-color: #d63e46; 
             --dark-red: #8b1e24;
             --gold-color: #cfa972; 
+            --line-green: #06c755; /* LINE 官方綠色 */
         }
 
         body {
             font-family: "Noto Serif TC", "Songti TC", serif;
             background-color: var(--bg-color);
-            /* 添加淡雅的中式背景紋理 */
             background-image: 
                 linear-gradient(45deg, #f4eadd 25%, transparent 25%, transparent 75%, #f4eadd 75%, #f4eadd),
                 linear-gradient(45deg, #f4eadd 25%, transparent 25%, transparent 75%, #f4eadd 75%, #f4eadd);
@@ -28,41 +28,140 @@
             background-position: 0 0, 30px 30px;
             color: var(--text-color);
             margin: 0;
-            padding: 0 0 100px 0; /* 底部留白給購物車 */
+            padding: 0 0 100px 0;
             user-select: none;
             -webkit-user-select: none;
         }
 
+        /* === 1. Header 改版 (Banner 背景) === */
         header {
             text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to bottom, #fffaf0, rgba(255,250,240,0.8));
-            border-bottom: 4px solid var(--dark-red);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            /* 使用 banner.jpg，並疊加一層黑色半透明遮罩，讓文字更清楚 */
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/banner.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px; /* 增加高度 */
+            margin-bottom: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        /* 為了容錯，如果 banner 載入失敗，顯示預設紅色背景 */
+        header.no-bg {
+            background-image: none;
+            background-color: var(--dark-red);
         }
 
         h1 {
-            color: var(--dark-red);
-            font-size: 2.2rem;
+            color: white; /* 改為白色 */
+            font-size: 3rem; /* 放大字體 */
             letter-spacing: 0.1em;
             margin: 0;
             font-weight: 700;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.6); /* 文字陰影 */
         }
 
         .subtitle {
-            color: var(--gold-color);
-            font-size: 1.1em;
-            margin-top: 10px;
+            color: #fff;
+            font-size: 1.2em;
+            margin-top: 15px;
             font-weight: bold;
-            background: var(--dark-red);
-            color: white;
+            background: rgba(139, 30, 36, 0.8); /* 半透明紅底 */
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* 篩選按鈕列 */
+        /* === 3. 關於畫室 (新區塊) === */
+        .intro-section {
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+            line-height: 1.8;
+            border-bottom: 1px solid #eee;
+        }
+
+        .intro-title {
+            font-size: 1.5rem;
+            color: var(--dark-red);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .intro-tags {
+            color: var(--gold-color);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .intro-sign {
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+            display: inline-block;
+            border-bottom: 2px solid var(--gold-color);
+            padding-bottom: 5px;
+        }
+
+        /* === 4. 購物引導 (新區塊) === */
+        .guide-section {
+            background: #fffaf0;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 12px;
+            border: 2px dashed var(--gold-color);
+            text-align: center;
+        }
+
+        .guide-title {
+            color: var(--dark-red);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .guide-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .step {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-num {
+            background: var(--dark-red);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* === 篩選按鈕 === */
         .filters {
             text-align: center;
             position: sticky;
@@ -94,10 +193,9 @@
             color: white;
         }
 
-        /* Grid 佈局 - 改為由左至右 */
+        /* === 畫廊 Grid === */
         .gallery {
             display: grid;
-            /* 自動填滿，最小寬度 160px (手機雙欄) */
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 20px;
             max-width: 1200px;
@@ -124,42 +222,28 @@
             flex-direction: column;
         }
 
-        .item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
+        .item:hover { transform: translateY(-5px); }
 
-        /* 圖片容器 */
         .img-box {
             position: relative;
             overflow: hidden;
             border-radius: 4px;
             background: #eee;
-            aspect-ratio: 1 / 1; /* 預設正方形，避免排版亂跳 */
+            aspect-ratio: 1 / 1; 
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* 長春聯的圖片比例調整 */
-        .item[data-type="couplet"] .img-box {
-            aspect-ratio: 1 / 2.5; 
-        }
+        .item[data-type="couplet"] .img-box { aspect-ratio: 1 / 2.5; }
 
         .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 填滿格子 */
-            display: block;
-            pointer-events: none;
+            width: 100%; height: 100%; object-fit: cover;
+            display: block; pointer-events: none;
         }
 
         .item-id {
-            text-align: center;
-            margin-top: 10px;
-            font-weight: bold;
-            color: var(--text-color);
-            font-size: 1rem;
+            text-align: center; margin-top: 10px; font-weight: bold;
         }
 
         .watermark-text {
@@ -170,196 +254,141 @@
             position: absolute;
         }
 
-        /* === 購物車浮動按鈕 === */
-        .fab-cart {
+        /* === 浮動按鈕區 === */
+        .fab-container {
             position: fixed;
             bottom: 30px;
             right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 900;
+        }
+
+        /* 購物車按鈕 */
+        .fab-cart {
             background: var(--dark-red);
             color: white;
-            width: 70px;
-            height: 70px;
+            width: 70px; height: 70px;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             cursor: pointer;
-            z-index: 900;
             transition: transform 0.3s;
             font-size: 0.8rem;
         }
-
         .fab-cart:hover { transform: scale(1.1); }
-        
-        .cart-count {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+        .cart-count { font-size: 1.2rem; font-weight: bold; }
 
-        /* === 通用燈箱 (詳情與購物車共用結構) === */
+        /* LINE 按鈕 (新增的獨立按鈕 - 左下角) */
+        .fab-line {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* 放左邊 */
+            background: var(--line-green);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4);
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 900;
+            transition: 0.3s;
+        }
+        .fab-line:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(6, 199, 85, 0.6); }
+
+        /* === 燈箱 === */
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.7);
             backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
         }
         .modal.show { display: flex; animation: fadeIn 0.3s; }
-
         @keyframes fadeIn { from {opacity:0} to {opacity:1} }
 
         .modal-content {
             background-color: white;
-            width: 90%;
-            max-width: 900px;
-            max-height: 90vh;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
+            width: 90%; max-width: 900px; max-height: 90vh;
+            border-radius: 12px; overflow: hidden;
+            position: relative; display: flex;
             flex-direction: column;
         }
 
-        @media (min-width: 768px) {
-            .modal-content.detail-mode { flex-direction: row; }
-        }
+        @media (min-width: 768px) { .modal-content.detail-mode { flex-direction: row; } }
 
         .close-btn {
-            position: absolute;
-            top: 10px; right: 15px;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 10;
-            color: #555;
+            position: absolute; top: 10px; right: 15px;
+            font-size: 2rem; cursor: pointer; z-index: 10; color: #555;
         }
 
-        /* 詳情頁樣式 */
         .modal-img-container {
-            flex: 1.5;
-            background: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+            flex: 1.5; background: #222;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px; position: relative; overflow: hidden;
         }
-        .modal-img-container img {
-            max-width: 100%;
-            max-height: 60vh;
-            object-fit: contain;
-        }
+        .modal-img-container img { max-width: 100%; max-height: 60vh; object-fit: contain; }
         
         .modal-info {
-            flex: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow-y: auto;
+            flex: 1; padding: 30px; display: flex;
+            flex-direction: column; justify-content: center; overflow-y: auto;
         }
 
         .price-selector {
-            margin: 20px 0;
-            padding: 15px;
-            background: #f8f8f8;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            margin: 20px 0; padding: 15px;
+            background: #f8f8f8; border-radius: 8px; border: 1px solid #ddd;
         }
         
         select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid var(--dark-red);
-            border-radius: 4px;
-            font-size: 1rem;
+            width: 100%; padding: 10px; margin-top: 5px;
+            border: 1px solid var(--dark-red); border-radius: 4px; font-size: 1rem;
         }
 
         .add-btn, .checkout-btn {
-            background-color: var(--dark-red);
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
+            background-color: var(--dark-red); color: white;
+            border: none; padding: 15px; font-size: 1.1rem;
+            border-radius: 8px; cursor: pointer; margin-top: 10px; width: 100%;
         }
 
-        /* === 購物車清單樣式 === */
-        .cart-list-container {
-            padding: 20px;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cart-item-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .cart-item-title { font-weight: bold; color: var(--dark-red); }
-        .cart-item-desc { font-size: 0.9rem; color: #666; }
-
-        .remove-btn {
-            color: #999;
-            background: none;
-            border: 1px solid #ddd;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .remove-btn:hover { background: #eee; color: red; }
-
-        .cart-footer {
-            padding: 20px;
-            background: #f9f9f9;
-            border-top: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .empty-cart-msg {
-            text-align: center;
-            color: #888;
-            padding: 40px;
-        }
-
-        /* 價格顯示 */
-        .current-price {
-            font-size: 1.8rem;
-            color: var(--dark-red);
-            font-weight: bold;
-            text-align: right;
-            margin-top: 10px;
-        }
+        .cart-list-container { padding: 20px; overflow-y: auto; max-height: 60vh; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
+        .remove-btn { color: #999; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; background:none; cursor: pointer; }
+        .cart-footer { padding: 20px; background: #f9f9f9; border-top: 1px solid #ddd; text-align: center; }
+        .current-price { font-size: 1.8rem; color: var(--dark-red); font-weight: bold; text-align: right; margin-top: 10px; }
 
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-<header>
+<header id="main-header">
     <h1>畇藝空間</h1>
     <div class="subtitle">新春手繪春聯特賣</div>
 </header>
+
+<div class="intro-section">
+    <div class="intro-title">畇藝空間</div>
+    <div class="intro-text">平凡的你/妳也能擁有的藝術空間</div>
+    <div class="intro-tags">#體驗藝術 &nbsp; #學習藝術 &nbsp; #生活中的藝術</div>
+    <div class="intro-sign">畇藝廊 x 水墨教室</div>
+</div>
+
+<div class="guide-section">
+    <div class="guide-title">🛒 訂購流程說明</div>
+    <div class="guide-steps">
+        <div class="step"><span class="step-num">1</span> 挑選喜歡的春聯加入清單</div>
+        <div class="step"><span class="step-num">2</span> 點選右下角「清單」確認內容</div>
+        <div class="step"><span class="step-num">3</span> 按下「複製」並加 LINE 詢問運費</div>
+    </div>
+</div>
 
 <div class="filters">
     <button class="filter-btn active" onclick="filterGallery('all')">全部</button>
@@ -368,20 +397,25 @@
     <button class="filter-btn" onclick="filterGallery('L7')">七言春聯</button>
 </div>
 
-<div class="gallery" id="gallery">
-    </div>
+<div class="gallery" id="gallery"></div>
 
-<div class="fab-cart" onclick="openCartModal()">
-    <div class="cart-count" id="cart-count">0</div>
-    <div>清單</div>
+<div class="fab-container">
+    <div class="fab-cart" onclick="openCartModal()">
+        <div class="cart-count" id="cart-count">0</div>
+        <div>清單</div>
+    </div>
 </div>
+
+<a href="https://lin.ee/mOcGjeX" target="_blank" class="fab-line">
+    💬 加入官方 LINE
+</a>
 
 <div class="modal" id="detail-modal">
     <div class="modal-content detail-mode">
         <span class="close-btn" onclick="closeDetailModal()">&times;</span>
         <div class="modal-img-container">
             <img id="detail-img" src="" alt="" onerror="tryNextFormat(this)">
-            <div class="watermark-text" style="top:50%; left:50%; transform:translate(-50%, -50%) rotate(-45deg); font-size:2rem;">版權所有</div>
+            <div class="watermark-text" style="top:50%; left:50%; transform:translate(-50%, -50%) rotate(-45deg); font-size:2rem;">畇藝空間</div>
         </div>
         <div class="modal-info">
             <h2 id="detail-title">商品詳情</h2>
@@ -389,14 +423,11 @@
             
             <div class="price-selector">
                 <label>選擇規格與價格：</label>
-                <select id="size-select" onchange="updatePriceDisplay()">
-                    </select>
+                <select id="size-select" onchange="updatePriceDisplay()"></select>
                 <div class="current-price">NT$ <span id="detail-price">0</span></div>
             </div>
 
-            <button class="add-btn" onclick="addToCart()">
-                加入選購清單
-            </button>
+            <button class="add-btn" onclick="addToCart()">加入選購清單</button>
         </div>
     </div>
 </div>
@@ -407,72 +438,38 @@
         <div style="padding: 20px; border-bottom: 1px solid #eee;">
             <h2 style="margin:0; color:var(--dark-red);">您的選購清單</h2>
         </div>
-        
-        <div id="cart-list" class="cart-list-container">
-            </div>
-
+        <div id="cart-list" class="cart-list-container"></div>
         <div class="cart-footer">
-            <div style="margin-bottom: 15px; font-weight:bold;">
-                預估總額：NT$ <span id="cart-total">0</span>
-            </div>
-            <button class="checkout-btn" onclick="checkout()">
-                複製清單並前往官方 LINE 下單
-            </button>
-            <p style="font-size:0.8rem; color:#666; margin-top:10px;">
-                點擊後將自動複製內容，並跳轉至 LINE APP
-            </p>
+            <div style="margin-bottom: 15px; font-weight:bold;">預估總額：NT$ <span id="cart-total">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">複製清單並前往官方 LINE 下單</button>
+            <p style="font-size:0.8rem; color:#666; margin-top:10px;">點擊後將自動複製內容，並跳轉至 LINE APP</p>
         </div>
     </div>
 </div>
 
 <script>
-    // ===============================================
-    // 1. 資料庫設定
-    // ===============================================
     const artworks = [];
-
-    // 產生編號邏輯
     function generateRange(prefix, start, end, category, label) {
         for (let i = start; i <= end; i++) {
-            artworks.push({
-                id: `${prefix}${i}`,
-                numId: i, // 存數字方便判斷範圍
-                category: category,
-                label: label
-            });
+            artworks.push({ id: `${prefix}${i}`, numId: i, category: category, label: label });
         }
     }
-
-    // 生成斗方 D101-D146
     generateRange('D', 101, 146, 'doufang', '吉祥斗方');
-    // 生成四言 L4-201 ~ L4-211
     generateRange('L4-', 201, 211, 'L4', '四言春聯');
-    // 生成七言 L7-301 ~ L7-302
     generateRange('L7-', 301, 302, 'L7', '七言春聯');
 
-    // ===============================================
-    // 2. 價格邏輯 (核心修改)
-    // ===============================================
-    
-    // 取得該商品的價格選項
     function getProductOptions(item) {
-        // A. 七言春聯 L7
         if (item.category === 'L7') {
             if (item.id === 'L7-301') return [{name: '隸書版', price: 550}];
             if (item.id === 'L7-302') return [{name: '一般版', price: 450}];
-            return [{name: '標準版', price: 450}]; // 預防萬一
+            return [{name: '標準版', price: 450}];
         }
-
-        // B. 四言春聯 L4
         if (item.category === 'L4') {
-            // 解析數字部分
             const num = item.numId; 
             if (num >= 201 && num <= 207) return [{name: '四言春聯', price: 280}];
             if (num >= 208 && num <= 211) return [{name: '四言春聯', price: 200}];
             return [{name: '四言春聯', price: 200}];
         }
-
-        // C. 斗方 (維持原價)
         if (item.category === 'doufang') {
             return [
                 { name: "34 x 34 cm (大) - $180", price: 180 },
@@ -481,33 +478,24 @@
                 { name: "6 x 6 cm (迷你) - $70", price: 70 }
             ];
         }
-        
         return [{name: '請詢價', price: 0}];
     }
 
-    // ===============================================
-    // 3. 購物車系統
-    // ===============================================
-    let cart = []; // 存放 {id, name, price, desc}
-
+    let cart = [];
     function addToCart() {
         if (!currentItem) return;
         const select = document.getElementById('size-select');
         const selectedOption = select.options[select.selectedIndex];
-        
         const cartItem = {
-            uniqueKey: Date.now(), // 唯一碼，允許重複買同一張
+            uniqueKey: Date.now(),
             id: currentItem.id,
-            category: currentItem.label,
             desc: selectedOption.text,
             price: parseInt(selectedOption.value)
         };
-
         cart.push(cartItem);
         updateCartCount();
         closeDetailModal();
-        
-        // 簡單提示
+        // 動畫提示
         const btn = document.querySelector('.fab-cart');
         btn.style.transform = 'scale(1.2)';
         setTimeout(() => btn.style.transform = 'scale(1)', 200);
@@ -527,20 +515,18 @@
         const list = document.getElementById('cart-list');
         const totalEl = document.getElementById('cart-total');
         list.innerHTML = '';
-        
         let total = 0;
-
         if (cart.length === 0) {
-            list.innerHTML = '<div class="empty-cart-msg">目前清單是空的<br>快去挑選喜歡的春聯吧！</div>';
+            list.innerHTML = '<div style="text-align:center; color:#888; padding:40px;">清單目前是空的<br>快去挑選喜歡的春聯吧！</div>';
         } else {
             cart.forEach(item => {
                 total += item.price;
                 const div = document.createElement('div');
                 div.className = 'cart-item';
                 div.innerHTML = `
-                    <div class="cart-item-info">
-                        <span class="cart-item-title">${item.id}</span>
-                        <span class="cart-item-desc">${item.desc}</span>
+                    <div style="display:flex; flex-direction:column;">
+                        <span style="font-weight:bold; color:var(--dark-red);">${item.id}</span>
+                        <span style="font-size:0.9rem; color:#666;">${item.desc}</span>
                     </div>
                     <button class="remove-btn" onclick="removeFromCart(${item.uniqueKey})">刪除</button>
                 `;
@@ -551,17 +537,10 @@
     }
 
     function checkout() {
-        if (cart.length === 0) {
-            alert('請先選購商品喔！');
-            return;
-        }
-
+        if (cart.length === 0) { alert('請先選購商品喔！'); return; }
         let msg = "老闆您好，我想訂購以下春聯：\n------------------------\n";
         let total = 0;
-        cart.forEach(item => {
-            msg += `● ${item.id} / ${item.desc}\n`;
-            total += item.price;
-        });
+        cart.forEach(item => { msg += `● ${item.id} / ${item.desc}\n`; total += item.price; });
         msg += "------------------------\n";
         msg += `預估總金額：$${total}\n`;
         msg += "------------------------\n";
@@ -576,37 +555,24 @@
         });
     }
 
-    // ===============================================
-    // 4. 介面渲染與互動
-    // ===============================================
     const gallery = document.getElementById('gallery');
     const detailModal = document.getElementById('detail-modal');
     const cartModal = document.getElementById('cart-modal');
     let currentItem = null;
 
-    // 渲染畫廊
     function renderGallery(filter = 'all') {
         gallery.innerHTML = '';
         artworks.forEach(item => {
             if (filter !== 'all' && item.category !== filter) return;
-
             const div = document.createElement('div');
             div.className = 'item';
-            // 標記類型以便 CSS 做特殊比例調整
             div.setAttribute('data-type', (item.category === 'doufang') ? 'doufang' : 'couplet');
-            
             div.onclick = () => openDetailModal(item);
-            
-            // 浮水印位置隨機
             const randTop = Math.floor(Math.random() * 60) + 20;
             const randLeft = Math.floor(Math.random() * 60) + 20;
-
             div.innerHTML = `
                 <div class="img-box">
-                    <img src="images/${item.id}.jpg" 
-                         alt="${item.id}" 
-                         loading="lazy" 
-                         onerror="tryNextFormat(this)">
+                    <img src="images/${item.id}.jpg" alt="${item.id}" loading="lazy" onerror="tryNextFormat(this)">
                     <div class="watermark-text" style="top:${randTop}%; left:${randLeft}%;">畇藝空間</div>
                 </div>
                 <div class="item-id">${item.id}</div>
@@ -621,20 +587,14 @@
         renderGallery(type);
     }
 
-    // 開啟商品詳情
     function openDetailModal(item) {
         currentItem = item;
         const img = document.getElementById('detail-img');
-        
-        // 重置圖片載入
         img.src = `images/${item.id}.jpg`; 
-        
         document.getElementById('detail-title').innerText = item.label;
         document.getElementById('detail-id').innerText = item.id;
-        
         const select = document.getElementById('size-select');
         select.innerHTML = '';
-        
         const options = getProductOptions(item);
         options.forEach(opt => {
             const option = document.createElement('option');
@@ -642,59 +602,47 @@
             option.text = opt.name;
             select.appendChild(option);
         });
-
         updatePriceDisplay();
         detailModal.classList.add('show');
     }
+    function closeDetailModal() { detailModal.classList.remove('show'); }
+    function openCartModal() { updateCartUI(); cartModal.classList.add('show'); }
+    function closeCartModal() { cartModal.classList.remove('show'); }
+    function updatePriceDisplay() { document.getElementById('detail-price').innerText = document.getElementById('size-select').value; }
 
-    function closeDetailModal() {
-        detailModal.classList.remove('show');
-    }
-
-    // 開啟購物車
-    function openCartModal() {
-        updateCartUI();
-        cartModal.classList.add('show');
-    }
-
-    function closeCartModal() {
-        cartModal.classList.remove('show');
-    }
-
-    function updatePriceDisplay() {
-        const select = document.getElementById('size-select');
-        document.getElementById('detail-price').innerText = select.value;
-    }
-
-    // 圖片副檔名容錯
+    // 容錯機制：包含 banner 和商品圖
     const extensions = ['.jpg', '.JPG', '.jpeg', '.png'];
     window.tryNextFormat = function(imgElement) {
         const currentSrc = imgElement.src;
+        // 如果是 header 背景載入失敗 (透過 DOM 操作很難偵測 background-image error，通常只能盡量確保檔名正確)
+        // 這裡只處理 <img> 標籤
         let currentExt = '';
         if (currentSrc.endsWith('.jpg')) currentExt = '.jpg';
         else if (currentSrc.endsWith('.JPG')) currentExt = '.JPG';
         else if (currentSrc.endsWith('.jpeg')) currentExt = '.jpeg';
         else if (currentSrc.endsWith('.png')) currentExt = '.png';
-        
         const currentIndex = extensions.indexOf(currentExt);
         if (currentIndex !== -1 && currentIndex < extensions.length - 1) {
-            const nextExt = extensions[currentIndex + 1];
-            imgElement.src = currentSrc.slice(0, -currentExt.length) + nextExt;
+            imgElement.src = currentSrc.slice(0, -currentExt.length) + extensions[currentIndex + 1];
         } else {
-            imgElement.onerror = null;
-            imgElement.style.opacity = '0.3'; // 標示失敗
+            imgElement.onerror = null; imgElement.style.opacity = '0.3';
         }
     };
 
-    // 點擊背景關閉
     window.onclick = function(e) {
         if (e.target == detailModal) closeDetailModal();
         if (e.target == cartModal) closeCartModal();
     }
+    
+    // Header Banner 載入檢測 (簡單版)
+    // 嘗試載入 banner.jpg，若失敗則移除背景圖改用純色，避免破圖感
+    const bannerImg = new Image();
+    bannerImg.src = 'images/banner.jpg';
+    bannerImg.onerror = function() {
+        document.getElementById('main-header').classList.add('no-bg');
+    };
 
-    // 初始執行
     renderGallery();
-
 </script>
 
 </body>
